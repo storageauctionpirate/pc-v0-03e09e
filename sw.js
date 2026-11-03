@@ -1,5 +1,5 @@
 // Offline: app shell cached; CDN libs (OCR/PDF readers) cached on first use.
-const V='pc-v0-1'; const SHELL=['./','index.html','engine.js','catalog.js','manifest.webmanifest','icon.svg'];
+const V='pc-v0-2'; const SHELL=['./','index.html','engine.js','catalog.js','ocr.js','manifest.webmanifest','icon.svg'];
 self.addEventListener('install',e=>{ e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener('activate',e=>{ e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x))))); self.clients.claim(); });
 self.addEventListener('fetch',e=>{ const u=new URL(e.request.url); if(e.request.method!=='GET') return;
